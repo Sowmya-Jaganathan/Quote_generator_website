@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quote Generator</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <h1>Welcome to the Quote of the Day!</h1>
+    <div>
+        <h2>Quote of the Day</h2>
+        <p>{{ quote_of_the_day }}</p>
+    </div>
+    <div class="container">
+        {% if quotes %}
+            <h2>Search Results for "{{ search_query }}"</h2>
+            <ul>
+                {% for quote in quotes %}
+                <li>{{ quote }}</li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <h1>Random Quote</h1>
+            <p>{{ quote }}</p>
+            <div class="categories">
+                <h2>Categories</h2>
+                <ul>
+                    {% for category in categories %}
+                    <li><a href="/{{ category }}">{{ category }}</a></li>
+                    {% endfor %}
+                </ul>
+            </div>
+        {% endif %}
+        <div class="search">
+            <h2>Search Quotes</h2>
+            <form action="/" method="GET">
+                <input type="text" name="q" placeholder="Enter search query">
+                <button type="submit">Search</button>
+            </form>
+        </div>
+        <button onclick="window.location.reload();">Generate New Quote</button>
+    </div>
+</body>
+</html>
